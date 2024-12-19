@@ -9,7 +9,7 @@ function App() {
         <h1>Natural Event Tracker</h1>
       </div>
 
-  )
+  );
 }
 
 export default App
