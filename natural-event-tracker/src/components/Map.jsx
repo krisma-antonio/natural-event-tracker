@@ -16,8 +16,8 @@ const Map = ({eventData}) => {
     });
   
   const markers = eventData.map((ev, index) => {
-    if(ev.categories[0].id === NATURAL_EVENT) {
-      console.log("Yes work!");
+    //if(ev.categories[0].id === NATURAL_EVENT) {
+      console.log("Yes woooooork!");
       new mapboxgl.Marker()
             .setLngLat([ ev.geometry[0].coordinates[0], ev.geometry[0].coordinates[1] ])
             .setPopup(
@@ -27,10 +27,10 @@ const Map = ({eventData}) => {
                 )
             )
             .addTo(mapRef.current);
-    } else {
-      console.log("No woork!");
-      return null;
-    }
+   // } else {
+     // console.log("No work!");
+      //return null;
+    //}
   })
   
   markers
