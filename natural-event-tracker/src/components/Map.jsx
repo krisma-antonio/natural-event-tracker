@@ -13,11 +13,12 @@ const Map = ({eventData}) => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
+      style: "mapbox://styles/mapbox/standard-satellite"
     });
+
   
   const markers = eventData.map((ev, index) => {
-    //if(ev.categories[0].id === NATURAL_EVENT) {
-      console.log("Yes woooooork!");
+      console.log("Yes wooork!");
       new mapboxgl.Marker()
             .setLngLat([ ev.geometry[0].coordinates[0], ev.geometry[0].coordinates[1] ])
             .setPopup(
@@ -27,14 +28,8 @@ const Map = ({eventData}) => {
                 )
             )
             .addTo(mapRef.current);
-   // } else {
-     // console.log("No work!");
-      //return null;
-    //}
   })
   
-  markers
-
   return () => {
     mapRef.current.remove()
 

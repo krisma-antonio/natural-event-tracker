@@ -7,15 +7,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Map from './Map';
+import Burger from './Burger';
 
 
-const SearchBar = () => {
+const SearchBar = ({activeMenu, setActiveMenu}) => {
 
     const [naturalEvent, setNaturalEvent] = useState("wildfires");
     const [eventData, setEventData] = useState([])
 
     useEffect(() => {
-        console.log("1.NaturalEvent updated?:", naturalEvent);
+        console.log("1.NaturalEvent updated:", naturalEvent);
     }, [naturalEvent]);
 
     const handleSearchValue = (e) => {
@@ -24,7 +25,7 @@ const SearchBar = () => {
     }
 
     console.log("NE:", naturalEvent);
-    // natural event not changing in url - option: put inside handleSearchValue
+    // FIX: url changing but eventData not changing
     const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?&status=open&days=30&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
   
     useEffect(() => {
@@ -44,9 +45,9 @@ const SearchBar = () => {
         <>
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand>Natural Event Tracker</Navbar.Brand>
+                <Burger activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>
                 <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Dropdown.Toggle variant="dark" id="dropdown-basic">
                         Natural Events
                     </Dropdown.Toggle>
 
