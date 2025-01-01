@@ -9,25 +9,27 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Map from './Map';
 import Burger from './Burger';
 
-
+// FIX: Add parameters, with set
 const SearchBar = ({activeMenu, setActiveMenu}) => {
 
-    const [naturalEvent, setNaturalEvent] = useState("wildfires");
+    const [naturalEvent, setNaturalEvent] = useState("");
     const [eventData, setEventData] = useState([])
 
     useEffect(() => {
         console.log("1.NaturalEvent updated:", naturalEvent);
     }, [naturalEvent]);
 
+    // FIX: set clicked event to true
     const handleSearchValue = (e) => {
         const event = e.target.getAttribute("id");
         setNaturalEvent(event);
     }
 
     console.log("NE:", naturalEvent);
-    // FIX: url changing but eventData not changing
-    const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?&status=open&days=30&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
+    // FIX: url changing but eventData not changing, only get main url
+    const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?&status=open&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
   
+    // FIX: add loading data and natural event(not getting only clicked natural event), also shouldn't do any rendering at first
     useEffect(() => {
       const fetchEvents = async () => {
         const res = await fetch(urlNasa)
@@ -37,7 +39,7 @@ const SearchBar = ({activeMenu, setActiveMenu}) => {
       }
   
       fetchEvents()
-    }, [])
+    }, [naturalEvent])
   
     console.log(eventData);
 

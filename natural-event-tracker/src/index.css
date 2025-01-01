@@ -10,7 +10,7 @@
 }
 
 .donation-page{
-    z-index: 200;
+    z-index: 105;
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -31,10 +31,11 @@
 
 .closed {
     transform: translateX(0);
+    color:black;
 }
 
 .open {
-    background-color: white;
+    background-color: rgb(234, 218, 218);
     display: flex;
     z-index: 100;
     flex-direction: column;
@@ -56,7 +57,8 @@
         font-weight: bold;
         letter-spacing: 0.5rem;
         text-decoration: none;
-        
+        color:black;
+
       }
 }
 

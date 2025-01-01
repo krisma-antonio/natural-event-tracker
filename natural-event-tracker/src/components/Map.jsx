@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+// FIX: Add parameters for natural events
 const Map = ({eventData}) => {
 
   const mapRef = useRef()
@@ -16,9 +17,10 @@ const Map = ({eventData}) => {
       style: "mapbox://styles/mapbox/standard-satellite"
     });
 
-  
-  const markers = eventData.map((ev, index) => {
-      console.log("Yes wooork!");
+  // FIX: if clicked event is true, change icon
+  const markers = eventData.map((ev) => {
+      console.log("Yes woooork!");
+     //if(ev.categories[0].id == "seaLakeIce")
       new mapboxgl.Marker()
             .setLngLat([ ev.geometry[0].coordinates[0], ev.geometry[0].coordinates[1] ])
             .setPopup(
@@ -35,7 +37,7 @@ const Map = ({eventData}) => {
 
   }
 
-}, [])
+}, [eventData])
 
 return (
   <>
