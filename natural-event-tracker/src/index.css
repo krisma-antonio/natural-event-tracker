@@ -62,3 +62,18 @@
       }
 }
 
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .loader img {
+    width: 320px;
+  }
+  
+  .loader h1 {
+    margin-top: 100px;
+  }

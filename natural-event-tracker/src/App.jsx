@@ -8,8 +8,6 @@ import NotFoundPage from './components/NotFoundPage';
 import Home from './components/Home';
 
 function App() {
-  const [activeMenu, setActiveMenu] = useState(false);
-
 
   return (
     <>

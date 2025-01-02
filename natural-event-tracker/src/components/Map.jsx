@@ -19,8 +19,7 @@ const Map = ({eventData}) => {
 
   // FIX: if clicked event is true, change icon
   const markers = eventData.map((ev) => {
-      console.log("Yes woooork!");
-     //if(ev.categories[0].id == "seaLakeIce")
+      console.log("Map works!");
       new mapboxgl.Marker()
             .setLngLat([ ev.geometry[0].coordinates[0], ev.geometry[0].coordinates[1] ])
             .setPopup(

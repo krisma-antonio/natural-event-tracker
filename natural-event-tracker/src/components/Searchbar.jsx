@@ -8,38 +8,45 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Map from './Map';
 import Burger from './Burger';
+import Loader from './Loader';
 
 // FIX: Add parameters, with set
 const SearchBar = ({activeMenu, setActiveMenu}) => {
 
-    const [naturalEvent, setNaturalEvent] = useState("");
-    const [eventData, setEventData] = useState([])
+    const [naturalEvent, setNaturalEvent] = useState("seaLakeIce");
+    const [eventData, setEventData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [clickedEvent, setClickedEvent] = useState(false);
 
     useEffect(() => {
-        console.log("1.NaturalEvent updated:", naturalEvent);
+        console.log("1. NaturalEvent updated:", naturalEvent);
     }, [naturalEvent]);
 
     // FIX: set clicked event to true
     const handleSearchValue = (e) => {
         const event = e.target.getAttribute("id");
         setNaturalEvent(event);
+        setClickedEvent(true);
     }
 
-    console.log("NE:", naturalEvent);
     // FIX: url changing but eventData not changing, only get main url
     const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?&status=open&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
   
     // FIX: add loading data and natural event(not getting only clicked natural event), also shouldn't do any rendering at first
     useEffect(() => {
       const fetchEvents = async () => {
-        const res = await fetch(urlNasa)
-        const { events } = await res.json()
-  
-        setEventData(events)
+        if(clickedEvent) {
+            setLoading(true)
+            const res = await fetch(urlNasa)
+            const { events } = await res.json()
+    
+            setEventData(events)
+            setLoading(false)
+        }
       }
   
       fetchEvents()
-    }, [naturalEvent])
+    }, [naturalEvent, clickedEvent])
   
     console.log(eventData);
 
@@ -71,7 +78,7 @@ const SearchBar = ({activeMenu, setActiveMenu}) => {
                 </Dropdown>
             </Container>
         </Navbar>
-        <Map eventData={eventData}/>
+        { !loading ? <Map eventData={eventData} /> : <Loader /> }
         </>
     );
 }
