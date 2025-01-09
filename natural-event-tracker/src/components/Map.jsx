@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-// FIX: Add parameters for natural events
 const Map = ({eventData}) => {
 
   const mapRef = useRef()
@@ -25,7 +24,7 @@ const Map = ({eventData}) => {
             .setPopup(
               new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
                 .setHTML(
-                  `<h3>${ev.title}</h3><p>${ev.description}</p>`
+                  `<h3>${ev.title}</h3><p>Description: ${ev.description}</p><p>Date started: ${ev.geometry[0].date}</p>`
                 )
             )
             .addTo(mapRef.current);
