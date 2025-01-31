@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const Map = ({eventData}) => {
+const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
 
   const mapRef = useRef()
   const mapContainerRef = useRef()
@@ -17,17 +17,52 @@ const Map = ({eventData}) => {
     });
 
   // FIX: if clicked event is true, change icon
+  if(eventData.length == 0 && clickedEvent) {
+    console.log("No current event for " + naturalEvent);
+    alert("No current event for " + naturalEvent);
+  }
+
   const markers = eventData.map((ev) => {
       console.log("Map works!");
-      new mapboxgl.Marker()
-            .setLngLat([ ev.geometry[0].coordinates[0], ev.geometry[0].coordinates[1] ])
-            .setPopup(
-              new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
-                .setHTML(
-                  `<h3>${ev.title}</h3><p>Description: ${ev.description}</p><p>Date started: ${ev.geometry[0].date}</p>`
+
+      let i = 0;
+      if(naturalEvent != "earthquakes") {
+        while(i < ev.geometry.length) {
+
+          new mapboxgl.Marker()
+                .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[0].coordinates[1] ])
+                .setPopup(
+                  new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
+                    .setHTML(
+                      `<h3>${ev.title}</h3>
+                        <p>Description: ${ev.description}</p>
+                        <p>Date started: ${ev.geometry[i].date}</p>
+                        <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
+                          <button>Learn More about ${ev.title}</button>
+                        </a>`
+                    )
                 )
+                .addTo(mapRef.current);
+          i+=1;
+        }
+      } else {
+        new mapboxgl.Marker()
+        .setLngLat([ ev.geometry.coordinates[0], ev.geometry.coordinates[1] ])
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
+            .setHTML(
+              `<h3>${ev.properties.title}</h3>
+                <p>Location: ${ev.properties.place}</p>
+                <p>Magnitude: ${ev.properties.mag}</p>
+                <p>Date started: ${date}</p>
+                <a href="https://www.google.com/search?q=${ev.properties.title}" target=_blank>
+                  <button>Learn More about ${ev.properties.title}</button>
+                </a>`
             )
-            .addTo(mapRef.current);
+        )
+        .addTo(mapRef.current);
+      }
+     
   })
   
   return () => {
