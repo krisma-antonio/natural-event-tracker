@@ -22,19 +22,23 @@ const SearchBar = () => {
         return `${year}-${month}-${date}`;
       }
 
+    // updates the clicked natural event  
     useEffect(() => {
         console.log("1. NaturalEvent updated:", naturalEvent);
     }, [naturalEvent]);
 
+    // sets clicked natural event
     const handleSearchValue = (e) => {
         const event = e.target.getAttribute("id");
         setNaturalEvent(event);
         setClickedEvent(true);
     }
 
+    // Natural event API URLS
     const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?limit=500&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
     const earthquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + getDate();
 
+    // Fetching APIs
     useEffect(() => {
       const fetchEvents = async () => {
         if(clickedEvent) {
@@ -59,6 +63,7 @@ const SearchBar = () => {
   
     console.log(eventData);
     
+    // DROPDOWN and MAP
     return (
         <>
         <Navibar>

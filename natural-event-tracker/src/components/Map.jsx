@@ -7,8 +7,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
   const mapRef = useRef()
   const mapContainerRef = useRef()
 
-  const NATURAL_EVENT = "wildfires";
-
+  // Initialize mapbox
   useEffect(() => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
     mapRef.current = new mapboxgl.Map({
@@ -16,19 +15,20 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
       style: "mapbox://styles/mapbox/standard-satellite"
     });
 
-  // FIX: if clicked event is true, change icon
+  // Set pop-up alert if no data available  
   if(eventData.length == 0 && clickedEvent) {
     console.log("No current event for " + naturalEvent);
     alert("No current event for " + naturalEvent);
   }
 
+  // TODO: if clicked event is true, change icon
   const markers = eventData.map((ev) => {
       console.log("Map works!");
-
       let i = 0;
+
       if(naturalEvent != "earthquakes") {
         while(i < ev.geometry.length) {
-
+          // Markers for volcanoes, severe storms, wildfires, and sea and lake ice from NASA EONET API
           new mapboxgl.Marker()
                 .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[0].coordinates[1] ])
                 .setPopup(
@@ -46,6 +46,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
           i+=1;
         }
       } else {
+        // Markers for earthquakes from USGS
         new mapboxgl.Marker()
         .setLngLat([ ev.geometry.coordinates[0], ev.geometry.coordinates[1] ])
         .setPopup(
