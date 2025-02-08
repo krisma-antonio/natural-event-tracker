@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
+import * as turf from '@turf/turf';
 
 const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
 
@@ -21,15 +22,68 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
     alert("No current event for " + naturalEvent);
   }
 
-  // TODO: if clicked event is true, change icon
+  mapRef.current.on('load', function(){
+    let _center = [-75.343, 39.984];
+    let _radius = 20;
+    let _options = {
+      steps: 80,
+      units: 'kilometers' // or "mile"
+    };
+
+    let _circle = turf.circle(_center, _radius, _options);
+
+    mapRef.current.addSource("circleData", {
+          type: "geojson",
+          data: _circle,
+        });
+
+    mapRef.current.addLayer({
+          id: "circle-fill",
+          type: "fill",
+          source: "circleData",
+          paint: {
+            "fill-color": "red",
+            "fill-opacity": 0.5,
+          },
+        });
+  });
+   // mapRef.current.flyTo({center: [-75.343, 39.984], speed:0.9, curve:1, zoom: 7});
+
+   // If clicked event is true, change icon
+   let icon;
+   
+   switch(naturalEvent) {
+     case "earthquakes":
+       icon = "earthquake";
+       break;
+     case "severeStorms":
+       icon = "storm";
+       break;
+     case "volcanoes":
+       icon = "volcano";
+       break;
+     case "seaLakeIce":
+       icon = "ice";
+       break;
+     case "wildfires":
+       icon = "fire";
+       break;
+   }
+
   const markers = eventData.map((ev) => {
       console.log("Map works!");
+
       let i = 0;
+      
+      const el = document.createElement('div');
+      el.className = icon;
 
       if(naturalEvent != "earthquakes") {
         while(i < ev.geometry.length) {
+          const el = document.createElement('div');
+          el.className = icon;
           // Markers for volcanoes, severe storms, wildfires, and sea and lake ice from NASA EONET API
-          new mapboxgl.Marker()
+          new mapboxgl.Marker(el)
                 .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[0].coordinates[1] ])
                 .setPopup(
                   new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
@@ -47,7 +101,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
         }
       } else {
         // Markers for earthquakes from USGS
-        new mapboxgl.Marker()
+        new mapboxgl.Marker(el)
         .setLngLat([ ev.geometry.coordinates[0], ev.geometry.coordinates[1] ])
         .setPopup(
           new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
