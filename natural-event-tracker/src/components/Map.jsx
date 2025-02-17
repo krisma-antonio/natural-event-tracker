@@ -1,12 +1,14 @@
 import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
-import * as turf from '@turf/turf';
+import DrawCircle from './DrawCircle';
 
-const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
+const Map = ({eventData, naturalEvent, clickedEvent, date, radius}) => {
 
   const mapRef = useRef()
   const mapContainerRef = useRef()
+  const [lat, setLat] = useState(0);
+  const [long, setLong] = useState(0);
 
   // Initialize mapbox
   useEffect(() => {
@@ -22,32 +24,35 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
     alert("No current event for " + naturalEvent);
   }
 
-  mapRef.current.on('load', function(){
-    let _center = [-75.343, 39.984];
-    let _radius = 20;
-    let _options = {
-      steps: 80,
-      units: 'kilometers' // or "mile"
-    };
+  // Get user location
+  mapRef.current.addControl(
+    new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: false,
+      showUserHeading: true
+    }), 'top-right'
+  );
 
-    let _circle = turf.circle(_center, _radius, _options);
+  function success(pos) {
+    const crd = pos.coords;
+    setLat(crd.latitude);
+    setLong(crd.longitude);
+    
+    console.log("Your current position is:");
+    console.log(`Latitude : ${lat}`);
+    console.log(`Longitude: ${long}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
 
-    mapRef.current.addSource("circleData", {
-          type: "geojson",
-          data: _circle,
-        });
+  }
 
-    mapRef.current.addLayer({
-          id: "circle-fill",
-          type: "fill",
-          source: "circleData",
-          paint: {
-            "fill-color": "red",
-            "fill-opacity": 0.5,
-          },
-        });
+  navigator.geolocation.getCurrentPosition(success);
+
+  // Call DrawCircle after the map is loaded
+  mapRef.current.on("load", () => {
+    DrawCircle(mapRef, radius, lat, long); 
   });
-   // mapRef.current.flyTo({center: [-75.343, 39.984], speed:0.9, curve:1, zoom: 7});
 
    // If clicked event is true, change icon
    let icon;
@@ -68,6 +73,9 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
      case "wildfires":
        icon = "fire";
        break;
+     default:
+      icon = "";
+      break;  
    }
 
   const markers = eventData.map((ev) => {
@@ -125,11 +133,12 @@ const Map = ({eventData, naturalEvent, clickedEvent, date}) => {
 
   }
 
-}, [eventData])
+}, [eventData, radius])
+
 
 return (
   <>
-    <div id='map-container' ref={mapContainerRef}/>
+    <div id='map-container' ref={mapContainerRef} style={{ height: '100%' }}/>
   </>
 )
     
