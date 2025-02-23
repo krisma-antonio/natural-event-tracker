@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import DrawCircle from './DrawCircle';
 
-const Map = ({eventData, naturalEvent, clickedEvent, date, radius}) => {
+const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEnable}) => {
 
   const mapRef = useRef()
   const mapContainerRef = useRef()
@@ -25,21 +25,23 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius}) => {
   }
 
   // Get user location
-  mapRef.current.addControl(
-    new mapboxgl.GeolocateControl({
-      positionOptions: {
+  const geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
         enableHighAccuracy: true
-      },
-      trackUserLocation: false,
-      showUserHeading: true
-    }), 'top-right'
-  );
+    },
+    trackUserLocation: false,
+    showUserHeading: true
+  });
+
+  mapRef.current.addControl(geolocate);
+  
 
   function success(pos) {
     const crd = pos.coords;
     setLat(crd.latitude);
     setLong(crd.longitude);
-    
+    setLocationEnable(true);
+
     console.log("Your current position is:");
     console.log(`Latitude : ${lat}`);
     console.log(`Longitude: ${long}`);
@@ -133,7 +135,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius}) => {
 
   }
 
-}, [eventData, radius])
+}, [eventData, radius, setLocationEnable])
 
 
 return (

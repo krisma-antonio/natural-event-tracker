@@ -273,11 +273,11 @@
   margin-left: 40px;
   background-color: black;
   border-radius: 20%;
-  transition: all 450ms ease;
+  transition: all 850ms ease-in-out;
 }
 
 .filter_style:hover {
-  opacity: 60%;
+  opacity: 70%;
 }
 
 .filter_style2 {
@@ -299,6 +299,7 @@
   padding-top: 10px;
   border-radius: 5%;
   background-color: rgb(35, 35, 39);
+  z-index:70;
 }
 
 .filter-box p{
@@ -313,7 +314,7 @@
 }
 
 .filter-button{
-  padding: 4px;
+  padding: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -328,6 +329,7 @@
   align-items: center;
   align-content: center;
   flex-direction: column;
+  padding-top: 10px;
 }
 
 .slide-container {
@@ -336,4 +338,20 @@
   align-items: center;
   align-content: center;
   flex-direction: column;
+}
+
+#range-slider {
+  position: static;
+  height: 30px;
+  padding: 10px;
+}
+
+.filter-title {
+    border: 1px solid white;
+    width:165px;
+    display:flex;
+    justify-content: center;
+    border-radius: 5px;
+    padding-top: 5px;
+    z-index:80;
 }

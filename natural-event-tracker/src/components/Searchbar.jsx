@@ -16,6 +16,7 @@ const SearchBar = () => {
     const [clickedEvent, setClickedEvent] = useState(false);
     const [open, setOpen] = useState(false);
     const [radius, setRadius] = useState(0);
+    const [locationEnable, setLocationEnable] = useState(false);
 
     // get current date
     const getDate = () => {
@@ -101,12 +102,12 @@ const SearchBar = () => {
                 </div>
                 <div className='row'>
                     <BsFilterCircleFill className='filter_style' title="Filter" type="button" onClick={showFilter}/> 
-                    {open ? <FilterDropDown setRadius={setRadius}/> : <div></div>}
+                    {open ? <FilterDropDown setRadius={setRadius} locationEnable={locationEnable} clickedEvent={clickedEvent}/> : <div></div>}
                 </div>
             </div>  
             <FaChartBar className='filter_style2'/>       
         </Navibar> 
-        { !loading ? <Map eventData={eventData} naturalEvent={naturalEvent} clickedEvent={clickedEvent} date={getDate()} radius={radius}/> : <Loader /> }
+        { !loading ? <Map eventData={eventData} naturalEvent={naturalEvent} clickedEvent={clickedEvent} date={getDate()} radius={radius} setLocationEnable={setLocationEnable}/> : <Loader /> }
         </>
     );
 }

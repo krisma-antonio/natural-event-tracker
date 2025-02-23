@@ -1,7 +1,8 @@
 import * as turf from '@turf/turf';
 
 const DrawCircle = (mapRef, radius, lat, long) => {
-    console.log(lat);
+    if(long > 0 || lat > 0) {
+        console.log(lat);
         let _center = [long, lat];
         let _options = {
         steps: 80,
@@ -25,7 +26,7 @@ const DrawCircle = (mapRef, radius, lat, long) => {
             },
             });
             
-    if(long > 0 || lat > 0) {
+    
         mapRef.current.flyTo({center: [long, lat], speed:0.9, curve:1, zoom: 7});
     }
 }
