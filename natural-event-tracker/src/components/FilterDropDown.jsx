@@ -4,14 +4,16 @@ import RangeSlider from './RangeSlider';
 
 
 
-const FilterDropDown = ({setRadius, locationEnable, clickedEvent}) => {
+const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents, setEnablePastEvents}) => {
     const [sliderValue, setSliderValue] = useState(0);
+    const [limit, setLimit] = useState(50);
 
     const handleSliderChange = (newValue) => {
         var output = document.getElementById("radius");
         output.innerHTML = newValue;
         setSliderValue(newValue);
     };
+
     const handleRadiusValue = () => {
         if(!locationEnable) {
             alert("You must enable geolocation first to use this feature.");
@@ -21,6 +23,28 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent}) => {
             console.log(sliderValue);
             setRadius(sliderValue);
         }
+    }
+
+    const enablePastEvents = () => {
+        var checkBox = document.getElementById("myCheck");
+
+        if (checkBox.checked == true){
+            setEnablePastEvents(true);
+        } else {
+            setEnablePastEvents(false); 
+        }
+
+    }
+
+    const numOfEvents = (newValue) => {
+        var output = document.getElementById("numOfEvents");
+        output.innerHTML = newValue;
+        setLimit(newValue);
+    }
+
+    const numOfEventsValue = () => {
+        console.log(limit);
+        setNumOfEvents(limit);
     }
     
     return(
@@ -32,14 +56,27 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent}) => {
                 <div className="filter-button">
                     <RangeSlider min={0} max={100} step={1} onChange={handleSliderChange}/>
                     <p>Radius: <span id="radius">0</span> km</p>
-                    <Button variant='light' size="sm" id='radius-button' type='button' onClick={handleRadiusValue}> Set Radius </Button>
+                    <Button variant='secondary' size="sm" type='button' onClick={handleRadiusValue}> Set Radius </Button>
                 </div>
 
             </div>
 
             <div className="section-1">
                 <div className="filter-title"><h1>Past Events</h1></div>
+                <form className="filter-checkbox">
+                    <input type="checkbox" id="myCheck" onClick={enablePastEvents}/> 
+                    <label> Show Past Events</label>
+                </form>
             </div>
+
+            <div className="section-1">
+                <div className="filter-title"><h1>Limit Events</h1></div>
+                <div className="filter-button">
+                    <RangeSlider min={50} max={300} step={1} onChange={numOfEvents}/>
+                    <p>Num: <span id="numOfEvents">50</span> events</p>
+                    <Button variant='secondary' size="sm" type='button' onClick={numOfEventsValue}> Limit </Button>
+                </div>
+            </div>    
         </div>
         </>
     )

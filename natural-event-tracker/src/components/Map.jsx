@@ -75,6 +75,24 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
      case "wildfires":
        icon = "fire";
        break;
+     case "drought":
+       icon = "earthquake";
+       break;
+     case "floods":
+       icon = "earthquake";
+       break;
+     case "dustHaze":
+       icon = "earthquake";
+       break;
+     case "landslides":
+       icon = "earthquake";
+       break;
+     case "snow":
+       icon = "earthquake";
+       break;
+     case "tempExtremes":
+       icon = "earthquake";
+       break;
      default:
       icon = "";
       break;  
@@ -93,20 +111,22 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
           const el = document.createElement('div');
           el.className = icon;
           // Markers for volcanoes, severe storms, wildfires, and sea and lake ice from NASA EONET API
-          new mapboxgl.Marker(el)
-                .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[0].coordinates[1] ])
-                .setPopup(
-                  new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
-                    .setHTML(
-                      `<h3>${ev.title}</h3>
-                        <p>Description: ${ev.description}</p>
-                        <p>Date started: ${ev.geometry[i].date}</p>
-                        <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
-                          <button>Learn More about ${ev.title}</button>
-                        </a>`
-                    )
-                )
-                .addTo(mapRef.current);
+          if(ev.geometry[i].type == "Point") {
+            new mapboxgl.Marker(el)
+                  .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[0].coordinates[1] ])
+                  .setPopup(
+                    new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
+                      .setHTML(
+                        `<h3>${ev.title}</h3>
+                          <p>Description: ${ev.description}</p>
+                          <p>Date started: ${ev.geometry[i].date}</p>
+                          <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
+                            <button>Learn More about ${ev.title}</button>
+                          </a>`
+                      )
+                  )
+                  .addTo(mapRef.current);
+          }
           i+=1;
         }
       } else {

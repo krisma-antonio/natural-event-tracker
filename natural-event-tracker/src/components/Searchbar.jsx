@@ -17,6 +17,8 @@ const SearchBar = () => {
     const [open, setOpen] = useState(false);
     const [radius, setRadius] = useState(0);
     const [locationEnable, setLocationEnable] = useState(false);
+    const [enablePastEvents, setEnablePastEvents] = useState(true);
+    const [numOfEvents, setNumOfEvents] = useState(50);
 
     // get current date
     const getDate = () => {
@@ -44,9 +46,9 @@ const SearchBar = () => {
     }
 
     // Natural event API URLS
-    //const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&limit=300&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?limit=300&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const earthquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + getDate();
+    const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?limit=' + numOfEvents + '&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
+    const earthquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + getDate() + '&limit=' + numOfEvents;
+    const urlPastEventsNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&limit=' + numOfEvents + '&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
 
     // Fetching APIs
     useEffect(() => {
@@ -54,14 +56,20 @@ const SearchBar = () => {
         if(clickedEvent) {
             setLoading(true)
 
-            if(naturalEvent != "earthquakes") {
-                const res = await fetch(urlNasa)
+            if(enablePastEvents && naturalEvent != "earthquakes") {
+                const res = await fetch(urlPastEventsNasa)
                 const { events } = await res.json()
                 setEventData(events)
             } else {
-                const res = await fetch(earthquakeURL)
-                const { features } = await res.json()
-                setEventData(features)
+                if(naturalEvent != "earthquakes") {
+                    const res = await fetch(urlNasa)
+                    const { events } = await res.json()
+                    setEventData(events)
+                } else {
+                    const res = await fetch(earthquakeURL)
+                    const { features } = await res.json()
+                    setEventData(features)
+                }
             }
            
             setLoading(false)
@@ -69,7 +77,7 @@ const SearchBar = () => {
       }
   
       fetchEvents()
-    }, [naturalEvent, clickedEvent])
+    }, [naturalEvent, clickedEvent, numOfEvents, enablePastEvents])
   
     console.log(eventData);
     
@@ -102,12 +110,12 @@ const SearchBar = () => {
                 </div>
                 <div className='row'>
                     <BsFilterCircleFill className='filter_style' title="Filter" type="button" onClick={showFilter}/> 
-                    {open ? <FilterDropDown setRadius={setRadius} locationEnable={locationEnable} clickedEvent={clickedEvent}/> : <div></div>}
+                    {open ? <FilterDropDown setRadius={setRadius} locationEnable={locationEnable} clickedEvent={clickedEvent} setNumOfEvents={setNumOfEvents} setEnablePastEvents={setEnablePastEvents}/> : <div></div>}
                 </div>
             </div>  
             <FaChartBar className='filter_style2'/>       
         </Navibar> 
-        { !loading ? <Map eventData={eventData} naturalEvent={naturalEvent} clickedEvent={clickedEvent} date={getDate()} radius={radius} setLocationEnable={setLocationEnable}/> : <Loader /> }
+        { !loading ? <Map eventData={eventData} naturalEvent={naturalEvent} clickedEvent={clickedEvent} date={getDate()} radius={radius} setLocationEnable={setLocationEnable} numOfEvents={numOfEvents}/> : <Loader /> }
         </>
     );
 }
