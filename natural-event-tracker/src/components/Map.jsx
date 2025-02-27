@@ -76,22 +76,22 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
        icon = "fire";
        break;
      case "drought":
-       icon = "earthquake";
+       icon = "drought";
        break;
      case "floods":
-       icon = "earthquake";
+       icon = "flood";
        break;
      case "dustHaze":
-       icon = "earthquake";
+       icon = "dustHaze";
        break;
      case "landslides":
-       icon = "earthquake";
+       icon = "landslides";
        break;
      case "snow":
-       icon = "earthquake";
+       icon = "snow";
        break;
      case "tempExtremes":
-       icon = "earthquake";
+       icon = "tempExtremes";
        break;
      default:
       icon = "";

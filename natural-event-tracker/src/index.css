@@ -216,7 +216,7 @@
 }
 
 .earthquake {
-  background-image: url('./components/images/earthquake.png');
+  background-image: url('./components/images/Earthquake.png');
   background-size: cover;
   width: 65px;
   height: 65px;
@@ -224,7 +224,7 @@
 }
 
 .fire {
-  background-image: url('./components/images/fire.png');
+  background-image: url('./components/images/Fire.png');
   background-size: cover;
   width: 47px;
   height: 47px;
@@ -232,7 +232,7 @@
 }
 
 .ice {
-  background-image: url('./components/images/ice.png');
+  background-image: url('./components/images/Iceberg.png');
   background-size: cover;
   width: 55px;
   height: 55px;
@@ -240,7 +240,7 @@
 }
 
 .storm {
-  background-image: url('./components/images/storm.png');
+  background-image: url('./components/images/Storm.png');
   background-size: cover;
   width: 55px;
   height: 55px;
@@ -255,6 +255,53 @@
   cursor: pointer;
 }
 
+.drought {
+  background-image: url('./components/images/Droughts.png');
+  background-size: cover;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+}
+
+.flood {
+  background-image: url('./components/images/Floods.png');
+  background-size: cover;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+}
+
+.dustHaze {
+  background-image: url('./components/images/DustHaze.png');
+  background-size: cover;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+}
+
+.landslides {
+  background-image: url('./components/images/Landslides.png');
+  background-size: cover;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+}
+
+.snow {
+  background-image: url('./components/images/Snow.png');
+  background-size: cover;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+}
+
+.tempExtremes {
+  background-image: url('./components/images/TempExtremes.png');
+  background-size: cover;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+}
 .center {
   display: flex;
 }
