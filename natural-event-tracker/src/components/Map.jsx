@@ -33,7 +33,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
     showUserHeading: true
   });
 
-  mapRef.current.addControl(geolocate);
+  mapRef.current.addControl(geolocate, 'top-right');
   
 
   function success(pos) {
@@ -102,18 +102,21 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
       console.log("Map works!");
 
       let i = 0;
+      let j = 0;
       
       const el = document.createElement('div');
       el.className = icon;
 
       if(naturalEvent != "earthquakes") {
         while(i < ev.geometry.length) {
+          
           const el = document.createElement('div');
           el.className = icon;
+
           // Markers for volcanoes, severe storms, wildfires, and sea and lake ice from NASA EONET API
           if(ev.geometry[i].type == "Point") {
             new mapboxgl.Marker(el)
-                  .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[0].coordinates[1] ])
+                  .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[i].coordinates[1] ])
                   .setPopup(
                     new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
                       .setHTML(
@@ -126,6 +129,29 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                       )
                   )
                   .addTo(mapRef.current);
+          } else if (ev.geometry[i].type == "Polygon"){
+            while(j < ev.geometry[i].coordinates[0].length) {
+
+              const el = document.createElement('div');
+              el.className = icon;
+
+              new mapboxgl.Marker(el)
+              .setLngLat([ ev.geometry[i].coordinates[0][j][0], ev.geometry[i].coordinates[0][j][1] ])
+              .setPopup(
+                new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
+                  .setHTML(
+                    `<h3>${ev.title}</h3>
+                      <p>Description: ${ev.description}</p>
+                      <p>Date started: ${ev.geometry[i].date}</p>
+                      <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
+                        <button>Learn More about ${ev.title}</button>
+                      </a>`
+                  )
+              )
+              .addTo(mapRef.current);
+              j+=1;
+
+            }
           }
           i+=1;
         }
