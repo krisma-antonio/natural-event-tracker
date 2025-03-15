@@ -12,7 +12,6 @@ function RangeSlider({ min, max, step, onChange }) {
   return (
     <div id='range-slider'>
       <input type="range" min={min} max={max} step={step} value={value} onChange={handleInputChange}/>
-      <span>{value}</span>
     </div>
   );
 }

@@ -26,8 +26,9 @@ const DrawCircle = (mapRef, radius, lat, long) => {
             },
             });
             
-    
-        mapRef.current.flyTo({center: [long, lat], speed:0.9, curve:1, zoom: 7});
+        /*if(radius > 0) {
+            mapRef.current.flyTo({center: [long, lat], speed:0.9, curve:1, zoom: 7});
+        }*/
     }
 }
 

@@ -17,7 +17,7 @@ const SearchBar = () => {
     const [open, setOpen] = useState(false);
     const [radius, setRadius] = useState(0);
     const [locationEnable, setLocationEnable] = useState(false);
-    const [enablePastEvents, setEnablePastEvents] = useState(true);
+    const [enablePastEvents, setEnablePastEvents] = useState(false);
     const [numOfEvents, setNumOfEvents] = useState(50);
 
     // get current date
@@ -41,8 +41,8 @@ const SearchBar = () => {
         setClickedEvent(true);
     }
 
-    const showFilter = () => {
-        setOpen(!open);
+    const handleChartButton = () => {
+        console.log("Chart button pressed!");
     }
 
     // Natural event API URLS
@@ -93,28 +93,26 @@ const SearchBar = () => {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
+                            <Dropdown.Item id="earthquakes" onClick={handleSearchValue}>Earthquakes</Dropdown.Item>
+                            <Dropdown.Item id="severeStorms" onClick={handleSearchValue}>Severe Storms</Dropdown.Item>
+                            <Dropdown.Item id="volcanoes" onClick={handleSearchValue}>Volcanoes</Dropdown.Item>
+                            <Dropdown.Item id="seaLakeIce" onClick={handleSearchValue}>Sea and Lake Ice</Dropdown.Item>
+                            <Dropdown.Item id="wildfires" onClick={handleSearchValue}>Wildfires</Dropdown.Item>
+                            <Dropdown.Divider/>
                             <Dropdown.Item id="drought" onClick={handleSearchValue}>Droughts</Dropdown.Item>
                             <Dropdown.Item id="floods" onClick={handleSearchValue}>Floods</Dropdown.Item>
                             <Dropdown.Item id="dustHaze" onClick={handleSearchValue}>Dust and Haze</Dropdown.Item>
                             <Dropdown.Item id="landslides" onClick={handleSearchValue}>Landslides</Dropdown.Item>
                             <Dropdown.Item id="snow" onClick={handleSearchValue}>Snow</Dropdown.Item>
                             <Dropdown.Item id="tempExtremes" onClick={handleSearchValue}>Temperature Extremes</Dropdown.Item>
-                            <Dropdown.Divider/>
-                            <Dropdown.Item id="earthquakes" onClick={handleSearchValue}>Earthquakes</Dropdown.Item>
-                            <Dropdown.Item id="severeStorms" onClick={handleSearchValue}>Severe Storms</Dropdown.Item>
-                            <Dropdown.Item id="volcanoes" onClick={handleSearchValue}>Volcanoes</Dropdown.Item>
-                            <Dropdown.Item id="seaLakeIce" onClick={handleSearchValue}>Sea and Lake Ice</Dropdown.Item>
-                            <Dropdown.Item id="wildfires" onClick={handleSearchValue}>Wildfires</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown> 
                 </div>
-                <div className='row'>
-                    <BsFilterCircleFill className='filter_style' title="Filter" type="button" onClick={showFilter}/> 
-                    {open ? <FilterDropDown setRadius={setRadius} locationEnable={locationEnable} clickedEvent={clickedEvent} setNumOfEvents={setNumOfEvents} setEnablePastEvents={setEnablePastEvents}/> : <div></div>}
-                </div>
+                
             </div>  
-            <FaChartBar className='filter_style2'/>       
+            <FaChartBar onClick={handleChartButton} className='chart-button'/>       
         </Navibar> 
+        <FilterDropDown setRadius={setRadius} locationEnable={locationEnable} clickedEvent={clickedEvent} setNumOfEvents={setNumOfEvents} setEnablePastEvents={setEnablePastEvents}/>
         { !loading ? <Map eventData={eventData} naturalEvent={naturalEvent} clickedEvent={clickedEvent} date={getDate()} radius={radius} setLocationEnable={setLocationEnable} numOfEvents={numOfEvents}/> : <Loader /> }
         </>
     );

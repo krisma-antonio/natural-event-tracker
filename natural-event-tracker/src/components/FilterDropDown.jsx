@@ -1,12 +1,14 @@
 import {useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import RangeSlider from './RangeSlider';
-
-
+import Alert from 'react-bootstrap/Alert';
+import AlertEvent from './AlertEvent';
 
 const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents, setEnablePastEvents}) => {
     const [sliderValue, setSliderValue] = useState(0);
     const [limit, setLimit] = useState(50);
+    const [showGeolocationAlert, setShowGeolocationAlert] = useState(false);
+    const [showChooseFirstAlert, setShowChooseFirstAlert] = useState(false);
 
     const handleSliderChange = (newValue) => {
         var output = document.getElementById("radius");
@@ -16,9 +18,11 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents
 
     const handleRadiusValue = () => {
         if(!locationEnable) {
-            alert("You must enable geolocation first to use this feature.");
+            // alert("You must enable geolocation first to use this feature.");
+            setShowGeolocationAlert(true);
         } else if (!clickedEvent){
-            alert("You must choose a natural event first to use this feature.");
+            // alert("You must choose a natural event first to use this feature.");
+            setShowChooseFirstAlert(true);
         } else {
             console.log(sliderValue);
             setRadius(sliderValue);
@@ -54,7 +58,7 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents
             <div className="section-1">
                 <div className="filter-title"><h1>Proximity Radius</h1></div>
                 <div className="filter-button">
-                    <RangeSlider min={0} max={100} step={1} onChange={handleSliderChange}/>
+                    <RangeSlider min={0} max={200} step={1} onChange={handleSliderChange}/>
                     <p>Radius: <span id="radius">0</span> km</p>
                     <Button variant='secondary' size="sm" type='button' onClick={handleRadiusValue}> Set Radius </Button>
                 </div>
@@ -72,12 +76,52 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents
             <div className="section-1">
                 <div className="filter-title"><h1>Limit Events</h1></div>
                 <div className="filter-button">
-                    <RangeSlider min={50} max={300} step={1} onChange={numOfEvents}/>
-                    <p>Num: <span id="numOfEvents">50</span> events</p>
+                    <RangeSlider min={50} max={500} step={1} onChange={numOfEvents}/>
+                    <p>Limit: <span id="numOfEvents">50</span> events</p>
                     <Button variant='secondary' size="sm" type='button' onClick={numOfEventsValue}> Limit </Button>
                 </div>
             </div>    
         </div>
+
+        {showGeolocationAlert ?
+            <Alert variant="warning" 
+                style={{position:'absolute', display:'flex', justifyContent:'center', flexDirection:'column',
+                zIndex:400, top: '50%', 
+                left: '50%', 
+                transform: 'translate(-50%, -50%)',
+                padding: '20px',
+                textAlign: 'center',
+                width:'350px',
+                height:'210px'}}>
+                <Alert.Heading>Unable to use Proximity Radius Filter</Alert.Heading>
+                <hr />
+                <p>You must enable geolocation first to use this feature.</p>
+                <div className="d-flex justify-content-end">
+                <Button onClick={() => setShowGeolocationAlert(false)} variant="outline-success">
+                    Close
+                </Button>
+                </div>
+            </Alert>  : null}
+
+            {showChooseFirstAlert ?
+            <Alert variant="warning" 
+                style={{position:'absolute', display:'flex', justifyContent:'center', flexDirection:'column',
+                zIndex:400, top: '50%', 
+                left: '50%', 
+                transform: 'translate(-50%, -50%)',
+                padding: '20px',
+                textAlign: 'center',
+                width:'350px',
+                height:'210px'}}>
+                <Alert.Heading>Unable to use Proximity Radius Filter</Alert.Heading>
+                <hr />
+                <p>You must choose a natural event first to use this feature.</p>
+                <div className="d-flex justify-content-end">
+                <Button onClick={() => setShowChooseFirstAlert(false)} variant="outline-success">
+                    Close
+                </Button>
+                </div>
+            </Alert>  : null}
         </>
     )
 }

@@ -2,6 +2,10 @@ import { useRef, useEffect, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import DrawCircle from './DrawCircle';
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+
+import AlertEvent from './AlertEvent';
 
 const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEnable}) => {
 
@@ -9,6 +13,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
   const mapContainerRef = useRef()
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
 
   // Initialize mapbox
   useEffect(() => {
@@ -21,7 +26,8 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
   // Set pop-up alert if no data available  
   if(eventData.length == 0 && clickedEvent) {
     console.log("No current event for " + naturalEvent);
-    alert("No current event for " + naturalEvent);
+    //alert("No current event for " + naturalEvent + "\nSuggestion: use Past Events filter to show past data for this natural event");
+    setShowAlert(true);
   }
 
   // Get user location
@@ -54,6 +60,9 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
   // Call DrawCircle after the map is loaded
   mapRef.current.on("load", () => {
     DrawCircle(mapRef, radius, lat, long); 
+    if(radius > 0) {
+      mapRef.current.flyTo({center: [long, lat], speed:0.9, curve:1, zoom: 7});
+    }
   });
 
    // If clicked event is true, change icon
@@ -112,6 +121,11 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
           
           const el = document.createElement('div');
           el.className = icon;
+          let desc = "";
+
+          if(ev.description != null) {
+            desc = ev.description;
+          }
 
           // Markers for volcanoes, severe storms, wildfires, and sea and lake ice from NASA EONET API
           if(ev.geometry[i].type == "Point") {
@@ -121,8 +135,10 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                     new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
                       .setHTML(
                         `<h3>${ev.title}</h3>
-                          <p>Description: ${ev.description}</p>
-                          <p>Date started: ${ev.geometry[i].date}</p>
+                          <div>
+                            <p>${desc}</p>
+                            <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
+                          </div>
                           <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
                             <button>Learn More about ${ev.title}</button>
                           </a>`
@@ -134,6 +150,11 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
 
               const el = document.createElement('div');
               el.className = icon;
+              let desc = "";
+
+              if(ev.description != null) {
+                desc = ev.description;
+              } 
 
               new mapboxgl.Marker(el)
               .setLngLat([ ev.geometry[i].coordinates[0][j][0], ev.geometry[i].coordinates[0][j][1] ])
@@ -141,8 +162,10 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                 new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
                   .setHTML(
                     `<h3>${ev.title}</h3>
-                      <p>Description: ${ev.description}</p>
-                      <p>Date started: ${ev.geometry[i].date}</p>
+                      <div>
+                        <p>${desc}</p>
+                        <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
+                      </div>
                       <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
                         <button>Learn More about ${ev.title}</button>
                       </a>`
@@ -163,9 +186,11 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
           new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
             .setHTML(
               `<h3>${ev.properties.title}</h3>
-                <p>Location: ${ev.properties.place}</p>
-                <p>Magnitude: ${ev.properties.mag}</p>
-                <p>Date started: ${date}</p>
+                <div>
+                  <p>Location: ${ev.properties.place}</p>
+                  <p>Magnitude: ${ev.properties.mag}</p>
+                  <p>Date started: ${date}</p>
+                </div>
                 <a href="https://www.google.com/search?q=${ev.properties.title}" target=_blank>
                   <button>Learn More about ${ev.properties.title}</button>
                 </a>`
@@ -181,12 +206,30 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
 
   }
 
-}, [eventData, radius, setLocationEnable])
-
+}, [eventData, radius, setLocationEnable, lat])
 
 return (
   <>
-    <div id='map-container' ref={mapContainerRef} style={{ height: '100%' }}/>
+  {showAlert ? 
+    <Alert variant="warning" 
+        style={{position:'absolute', display:'flex', justifyContent:'center', flexDirection:'column',
+          zIndex:300, top: '50%', 
+          left: '50%', 
+          transform: 'translate(-50%, -50%)',
+          padding: '20px',
+          textAlign: 'center',
+          width:'350px',
+          height:'210px'}}>
+        <Alert.Heading>No current event for {naturalEvent}</Alert.Heading>
+        <hr />
+        <p>Suggestion: use Past Events filter to show past data for this natural event</p>
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShowAlert(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+    </Alert> : null}
+    <div id='map-container' ref={mapContainerRef} style={{ height: '90.17%' }}/>
   </>
 )
     
