@@ -334,11 +334,21 @@
   width: 60px;
   height: 60px;
   color: gray;
-  opacity: 40%;
+  transition: all 250ms ease-in-out;
+  z-index:400;
 }
 
 .chart-button:hover {
   opacity: 40%;
+}
+
+.chart-box {
+  position: absolute;
+  background-color: #969696;
+  right:0;
+  width:500px;
+  height: 100%;
+  z-index:300;
 }
 
 .filter-box {

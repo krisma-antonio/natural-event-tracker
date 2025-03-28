@@ -7,6 +7,7 @@ import { BsFilterCircleFill } from "react-icons/bs";
 import { FaChartBar } from "react-icons/fa";
 import Map from './Map';
 import Loader from './Loader';
+import DisplayChart from './DisplayChart';
 
 const SearchBar = () => {
 
@@ -14,7 +15,7 @@ const SearchBar = () => {
     const [eventData, setEventData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [clickedEvent, setClickedEvent] = useState(false);
-    const [open, setOpen] = useState(false);
+    const [chartButtonOpen, setChartButtonOpen] = useState(false);
     const [radius, setRadius] = useState(0);
     const [locationEnable, setLocationEnable] = useState(false);
     const [enablePastEvents, setEnablePastEvents] = useState(false);
@@ -43,6 +44,7 @@ const SearchBar = () => {
 
     const handleChartButton = () => {
         console.log("Chart button pressed!");
+        setChartButtonOpen(!chartButtonOpen);
     }
 
     // Natural event API URLS
@@ -110,7 +112,9 @@ const SearchBar = () => {
                 </div>
                 
             </div>  
-            <FaChartBar onClick={handleChartButton} className='chart-button'/>       
+            <FaChartBar onClick={handleChartButton} className='chart-button'/> 
+            {chartButtonOpen ? <DisplayChart chartButtonOpen={chartButtonOpen}/>: null}
+                
         </Navibar> 
         <FilterDropDown setRadius={setRadius} locationEnable={locationEnable} clickedEvent={clickedEvent} setNumOfEvents={setNumOfEvents} setEnablePastEvents={setEnablePastEvents}/>
         { !loading ? <Map eventData={eventData} naturalEvent={naturalEvent} clickedEvent={clickedEvent} date={getDate()} radius={radius} setLocationEnable={setLocationEnable} numOfEvents={numOfEvents}/> : <Loader /> }

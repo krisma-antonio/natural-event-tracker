@@ -6,11 +6,17 @@
     align-items: center;
     z-index: 110;
   }
+
+  .menu-bars:hover {
+    opacity: 40%;
+  }
+
   .menu-bars {
     margin-left: 2rem;
     font-size: 2.5rem;
     background: none;
     z-index: 111;
+    transition: all 250ms ease-in-out;
   }
   
   .nav-menu {
@@ -55,6 +61,8 @@
   
   .nav-text a:hover {
     background-color: #32639c;
+    transition: all 550ms ease-in-out;
+
   }
   
   .nav-menu-items {

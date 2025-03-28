@@ -1,4 +1,5 @@
 import Alert from 'react-bootstrap/Alert';
+import DOMPurify from 'dompurify';
 
 const AlertEvent = (heading, description, setAlert) => {
 
