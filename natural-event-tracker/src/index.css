@@ -329,8 +329,16 @@
   opacity: 50%;
 }
 
+.chart-button {
+  padding-right: 15px;
+  width: 60px;
+  height: 60px;
+  color: gray;
+  opacity: 40%;
+}
+
 .chart-button:hover {
-  opacity: 20%;
+  opacity: 40%;
 }
 
 .filter-box {
