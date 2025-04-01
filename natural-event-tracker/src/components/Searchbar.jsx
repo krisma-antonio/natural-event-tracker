@@ -57,23 +57,26 @@ const SearchBar = () => {
       const fetchEvents = async () => {
         if(clickedEvent) {
             setLoading(true)
-
-            if(enablePastEvents && naturalEvent != "earthquakes") {
-                const res = await fetch(urlPastEventsNasa)
-                const { events } = await res.json()
-                setEventData(events)
-            } else {
-                if(naturalEvent != "earthquakes") {
-                    const res = await fetch(urlNasa)
+            try {
+                if(enablePastEvents && naturalEvent != "earthquakes") {
+                    const res = await fetch(urlPastEventsNasa)
                     const { events } = await res.json()
                     setEventData(events)
                 } else {
-                    const res = await fetch(earthquakeURL)
-                    const { features } = await res.json()
-                    setEventData(features)
-                }
+                    if(naturalEvent != "earthquakes") {
+                        const res = await fetch(urlNasa)
+                        const { events } = await res.json()
+                        setEventData(events)
+                    } else {
+                        const res = await fetch(earthquakeURL)
+                        const { features } = await res.json()
+                        setEventData(features)
+                    } 
+                }  
+            } catch(error) {
+                throw error;
             }
-           
+
             setLoading(false)
         } 
       }
@@ -112,7 +115,8 @@ const SearchBar = () => {
                 </div>
                 
             </div>  
-            <FaChartBar onClick={handleChartButton} className='chart-button'/> 
+            <FaChartBar onClick={handleChartButton} className={'chart-button'}/> 
+            {/*TODO: put FaChartBar, handleChartButton, chartButtonOpen in another file like navibar*/}
             {chartButtonOpen ? <DisplayChart chartButtonOpen={chartButtonOpen}/>: null}
                 
         </Navibar> 
