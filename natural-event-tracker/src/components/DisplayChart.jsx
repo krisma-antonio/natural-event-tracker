@@ -26,20 +26,6 @@ import { useRef, useEffect, useState } from 'react'
  
 const DisplayChart = () => {
 
-    
-    // declare variables
-    /*const [earthquakeData, setEarthquakeData] = useState([]);
-    const [stormData, setStormData] = useState([]);
-    const [volcanoData, setVolcanoData] = useState([]);
-    const [iceData, setIceData] = useState([]);
-    const [wildfireData, setWildfireData] = useState([]);
-    const [droughtData, setDroughtData] = useState([]);
-    const [floodData, setFloodData] = useState([]);
-    const [dustHazeData, setDustHazeData] = useState([]);
-    const [landslideData, setLandslideData] = useState([]);
-    const [snowData, setSnowData] = useState([]);
-    const [tempExtremeData, settempExtremeData] = useState([]);*/
-
     const [numbers, setNumbers] = useState([]);
     
     const options = {
@@ -72,7 +58,7 @@ const DisplayChart = () => {
         plugins: {
             title: {
                 display: true,
-                text: 'Number of events',
+                text: 'Number of Active/Past events',
                 color: 'white',
                 font: {size: 20}
 
@@ -122,22 +108,11 @@ const DisplayChart = () => {
         ],
         };
 
-        /*numbers?.map((num) => (
-            console.log(num.num)
-          ))*/
-
-        // store numbers here
-        /*if(volcanoData != null && volcanoData.length != 0) {
-            console.log(volcanoData)
-            console.log(Object.keys(volcanoData.events).length);
-        }*/
-    
-        // <ChartData setEarthquakeData={setEarthquakeData} setStormData={setStormData} setVolcanoData={setVolcanoData} setIceData={setIceData} setWildfireData={setWildfireData} 
-        //setDroughtData={setDroughtData} setFloodData={setFloodData} setDustHazeData={setDustHazeData} setLandslideData={setLandslideData} setSnowData={setSnowData} settempExtremeData={settempExtremeData}/>
+ 
     return (
         <div className="chart-box">
+        <ChartData setNumbers={setNumbers}/>
         <Bar data={data} options={options}/>
-        <ChartData numbers={numbers} setNumbers={setNumbers}/>
         </div>
     );
 }

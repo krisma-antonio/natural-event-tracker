@@ -1,4 +1,4 @@
-import spinner from './spinner.gif'
+import spinner from './bar.gif'
 
 const BarLoader = () => {
     return (

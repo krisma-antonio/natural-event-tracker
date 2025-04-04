@@ -87,13 +87,19 @@
   }
 
   .bar-loader {
-    position: absolute;
+    box-sizing: content-box;
+    position: fixed;
     top: 0;
     right: 0;
     height: 100vh;
     width: 50vw;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding-left:10px;
+    padding-right:10px;
+    flex-direction: column;
+    color: white;
     background-image: url('./components/images/stars.png');
     z-index: 1001;
   }
