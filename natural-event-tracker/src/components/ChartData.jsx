@@ -28,7 +28,7 @@ const ChartData = ({numbers, setNumbers}) => {
     let nextId = 0;
 
     // get data from apis
-    const USGS_APIData = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
+    const USGS_APIData = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&';
     const storm_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=severeStorms&api_key=' + import.meta.env.VITE_NASA_API_KEY;
     const volcano_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=volcanoes&api_key=' + import.meta.env.VITE_NASA_API_KEY;
     const ice_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=seaLakeIce&api_key=' + import.meta.env.VITE_NASA_API_KEY;

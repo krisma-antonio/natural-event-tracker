@@ -139,7 +139,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                             <p>${desc}</p>
                             <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
                           </div>
-                          <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
+                          <a href="https://www.google.com/search?q=${ev.title}"  rel="noreferrer noopener" target=_blank>
                             <button>Learn More about ${ev.title}</button>
                           </a>`
                       )
@@ -166,7 +166,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                         <p>${desc}</p>
                         <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
                       </div>
-                      <a href="https://www.google.com/search?q=${ev.title}" target=_blank>
+                      <a href="https://www.google.com/search?q=${ev.title}" rel="noreferrer noopener" target=_blank>
                         <button>Learn More about ${ev.title}</button>
                       </a>`
                   )
@@ -191,7 +191,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                   <p>Magnitude: ${ev.properties.mag}</p>
                   <p>Date started: ${date}</p>
                 </div>
-                <a href="https://www.google.com/search?q=${ev.properties.title}" target=_blank>
+                <a href="https://www.google.com/search?q=${ev.properties.title}" rel="noreferrer noopener" target=_blank>
                   <button>Learn More about ${ev.properties.title}</button>
                 </a>`
             )

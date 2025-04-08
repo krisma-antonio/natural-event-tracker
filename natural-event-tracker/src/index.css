@@ -92,7 +92,7 @@
     top: 0;
     right: 0;
     height: 100vh;
-    width: 50vw;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,7 +170,7 @@
 }
 
 .content {
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(35, 35, 39);
 }
 
 .box {
@@ -327,6 +327,23 @@
   display: flex;
 }
 
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url('./components/images/stars.png');
+  color: white;
+}
+
+.not-found h1{
+  padding: 20px;
+  font-weight: 300;
+  text-align: center;
+}
+
 .row {
   flex-direction: row;
   justify-content: space-evenly;
@@ -350,6 +367,7 @@
 
 .chart-button {
   padding-right: 15px;
+  padding-top: 15px;
   width: 60px;
   height: 60px;
   color: gray;
@@ -361,19 +379,57 @@
   opacity: 40%;
 }
 
+.chart-button-disable {
+  pointer-events: none;
+}
+
 .chart-box {
   box-sizing: content-box;
-  position: fixed;
-  background-color: rgb(35, 35, 39);
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 50vw;
+  background-color: rgb(233, 233, 233);
+  height: 91vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   z-index:400;
-  padding-left:10px;
-  padding-right:10px;
+  padding-left: 20px;
+  padding-right: 30px;
+  flex-direction: column;
+}
+
+.chart-top {
+  padding-top: 30px;
+  padding-bottom: 20px;
+  background-color: rgb(35, 35, 39);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.chart-desc{
+  padding-top: 30px;
+  padding-bottom: 20px;
+  background-color: rgb(35, 35, 39);
+  color: white;
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  padding-left: 60px;
+}
+
+.chart-desc h3{
+  padding-bottom: 10px;
+}
+
+.chart-desc h5{
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.chart-desc p{
+  padding-top: 10px;
+  padding-left: 40px;
 }
 
 .chart-box-active {
