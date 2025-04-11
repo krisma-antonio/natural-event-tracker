@@ -8,7 +8,6 @@ const ChartFeature = () => {
     const [chartButtonOpen, setChartButtonOpen] = useState(false);
 
     const handleChartButton = () => {
-        console.log("Chart button pressed!");
         setChartButtonOpen(!chartButtonOpen);
     }
 

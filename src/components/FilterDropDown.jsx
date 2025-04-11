@@ -18,13 +18,10 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents
 
     const handleRadiusValue = () => {
         if(!locationEnable) {
-            // alert("You must enable geolocation first to use this feature.");
             setShowGeolocationAlert(true);
         } else if (!clickedEvent){
-            // alert("You must choose a natural event first to use this feature.");
             setShowChooseFirstAlert(true);
         } else {
-            console.log(sliderValue);
             setRadius(sliderValue);
         }
     }
@@ -47,7 +44,6 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents
     }
 
     const numOfEventsValue = () => {
-        console.log(limit);
         setNumOfEvents(limit);
     }
     

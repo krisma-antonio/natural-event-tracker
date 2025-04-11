@@ -10,7 +10,6 @@ import image5 from "./images/image5.jpg";
 import image6 from "./images/image6.jpg";
 
 const DonationPage = () => {
-    console.log("Donation Page is here!");
 
     return(
         <>

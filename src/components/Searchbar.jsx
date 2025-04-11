@@ -29,11 +29,6 @@ const SearchBar = () => {
         return `${year}-${month}-${date}`;
       }
 
-    // updates the clicked natural event  
-    useEffect(() => {
-        console.log("1. NaturalEvent updated:", naturalEvent);
-    }, [naturalEvent]);
-
     // sets clicked natural event
     const handleSearchValue = (e) => {
         const event = e.target.getAttribute("id");
@@ -41,12 +36,8 @@ const SearchBar = () => {
         setClickedEvent(true);
     }
 
-    
-
-    // Natural event API URLS
-    const urlNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?limit=' + numOfEvents + '&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
+    // Natural event API URL for earthquake
     const earthquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + getDate() + '&limit=' + numOfEvents;
-    const urlPastEventsNasa = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&limit=' + numOfEvents + '&category=' + naturalEvent + '&api_key=' + import.meta.env.VITE_NASA_API_KEY;
 
     // Fetching APIs
     useEffect(() => {
@@ -55,12 +46,12 @@ const SearchBar = () => {
             setLoading(true)
             try {
                 if(enablePastEvents && naturalEvent != "earthquakes") {
-                    const res = await fetch(urlPastEventsNasa)
+                    const res = await fetch('http://localhost:8000/apipastevents?naturalEvent=' + naturalEvent + '&numOfEvents=' + numOfEvents)
                     const { events } = await res.json()
                     setEventData(events)
                 } else {
                     if(naturalEvent != "earthquakes") {
-                        const res = await fetch(urlNasa)
+                        const res = await fetch( 'http://localhost:8000/apinasa?naturalEvent=' + naturalEvent + '&numOfEvents=' + numOfEvents)
                         const { events } = await res.json()
                         setEventData(events)
                     } else {
@@ -79,9 +70,7 @@ const SearchBar = () => {
   
       fetchEvents()
     }, [naturalEvent, clickedEvent, numOfEvents, enablePastEvents])
-  
-    console.log(eventData);
-    
+      
     // DROPDOWN and MAP
     return (
         <>

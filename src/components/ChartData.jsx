@@ -28,22 +28,19 @@ const ChartData = ({numbers, setNumbers}) => {
     let nextId = 0;
 
     // get data from apis
-    const USGS_APIData = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&';
-    const storm_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=severeStorms&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const volcano_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=volcanoes&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const ice_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=seaLakeIce&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const wildfire_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?category=wildfires&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const drought_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=drought&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const flood_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=floods&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const dustHaze_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=dustHaze&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const landslide_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=landslides&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const snow_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=snow&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-    const tempExtreme_APIData = 'https://eonet.gsfc.nasa.gov/api/v3/events?status=all&category=tempExtremes&api_key=' + import.meta.env.VITE_NASA_API_KEY;
-
-
+    const USGS_APIData = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
+    const storm_APIData = 'http://localhost:8000/severeStorms';
+    const volcano_APIData = 'http://localhost:8000/volcanoes';
+    const ice_APIData = 'http://localhost:8000/seaLakeIce';
+    const wildfire_APIData = 'http://localhost:8000/wildfires';
+    const drought_APIData = 'http://localhost:8000/drought';
+    const flood_APIData = 'http://localhost:8000/floods';
+    const dustHaze_APIData = 'http://localhost:8000/dustHaze';
+    const landslide_APIData = 'http://localhost:8000/landslides';
+    const snow_APIData = 'http://localhost:8000/snow';
+    const tempExtreme_APIData = 'http://localhost:8000/tempExtremes';
     
-   useEffect(() => {
-        const fetchEvents = async () => {
+    const fetchEvents = async () => {
         setLoading(true);
         try {
             const responses = await Promise.all([fetch(USGS_APIData), fetch(storm_APIData), fetch(volcano_APIData),fetch(ice_APIData),fetch(wildfire_APIData),fetch(drought_APIData),
@@ -65,10 +62,10 @@ const ChartData = ({numbers, setNumbers}) => {
         }
         setLoading(false);
         
-        }
+    } 
 
+   useEffect(() => {
         fetchEvents()
-
     },[])
     
 

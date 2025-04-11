@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import DrawCircle from './DrawCircle';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import axios from "axios";
 
 import AlertEvent from './AlertEvent';
 
@@ -23,10 +24,9 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
       style: "mapbox://styles/mapbox/standard-satellite"
     });
 
+
   // Set pop-up alert if no data available  
   if(eventData.length == 0 && clickedEvent) {
-    console.log("No current event for " + naturalEvent);
-    //alert("No current event for " + naturalEvent + "\nSuggestion: use Past Events filter to show past data for this natural event");
     setShowAlert(true);
   }
 
@@ -47,12 +47,6 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
     setLat(crd.latitude);
     setLong(crd.longitude);
     setLocationEnable(true);
-
-    console.log("Your current position is:");
-    console.log(`Latitude : ${lat}`);
-    console.log(`Longitude: ${long}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
-
   }
 
   navigator.geolocation.getCurrentPosition(success);
@@ -108,8 +102,6 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
    }
 
   const markers = eventData.map((ev) => {
-      console.log("Map works!");
-
       let i = 0;
       let j = 0;
       
