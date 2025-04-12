@@ -13,9 +13,9 @@ const ChartFeature = () => {
 
     return (
         <>
-        <a to="/DisplayChart.jsx" target="_blank" rel="noopener noreferrer" className={chartButtonOpen ? "chart-button-disable" : ""}>
+        <Link to={"/chart"} rel="noopener noreferrer" className={chartButtonOpen ? "chart-button-disable" : ""}>
             <FaChartBar id="chartButton" onClick={handleChartButton} className="chart-button"/>   
-        </a>
+        </Link>
 
         </>
     )
