@@ -29,16 +29,16 @@ const ChartData = ({numbers, setNumbers}) => {
 
     // get data from apis
     const USGS_APIData = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson';
-    const storm_APIData = 'http://localhost:8000/severeStorms';
-    const volcano_APIData = 'http://localhost:8000/volcanoes';
-    const ice_APIData = 'http://localhost:8000/seaLakeIce';
-    const wildfire_APIData = 'http://localhost:8000/wildfires';
-    const drought_APIData = 'http://localhost:8000/drought';
-    const flood_APIData = 'http://localhost:8000/floods';
-    const dustHaze_APIData = 'http://localhost:8000/dustHaze';
-    const landslide_APIData = 'http://localhost:8000/landslides';
-    const snow_APIData = 'http://localhost:8000/snow';
-    const tempExtreme_APIData = 'http://localhost:8000/tempExtremes';
+    const storm_APIData = 'https://naturaleventtrackerapi.onrender.com/severeStorms';
+    const volcano_APIData = 'https://naturaleventtrackerapi.onrender.com/volcanoes';
+    const ice_APIData = 'https://naturaleventtrackerapi.onrender.com/seaLakeIce';
+    const wildfire_APIData = 'https://naturaleventtrackerapi.onrender.com/wildfires';
+    const drought_APIData = 'https://naturaleventtrackerapi.onrender.com/drought';
+    const flood_APIData = 'https://naturaleventtrackerapi.onrender.com/floods';
+    const dustHaze_APIData = 'https://naturaleventtrackerapi.onrender.com/dustHaze';
+    const landslide_APIData = 'https://naturaleventtrackerapi.onrender.com/landslides';
+    const snow_APIData = 'https://naturaleventtrackerapi.onrender.com/snow';
+    const tempExtreme_APIData = 'https://naturaleventtrackerapi.onrender.com/tempExtremes';
     
     const fetchEvents = async () => {
         setLoading(true);

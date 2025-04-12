@@ -46,12 +46,12 @@ const SearchBar = () => {
             setLoading(true)
             try {
                 if(enablePastEvents && naturalEvent != "earthquakes") {
-                    const res = await fetch('http://localhost:8000/apipastevents?naturalEvent=' + naturalEvent + '&numOfEvents=' + numOfEvents)
+                    const res = await fetch('https://naturaleventtrackerapi.onrender.com/apipastevents?naturalEvent=' + naturalEvent + '&numOfEvents=' + numOfEvents)
                     const { events } = await res.json()
                     setEventData(events)
                 } else {
                     if(naturalEvent != "earthquakes") {
-                        const res = await fetch( 'http://localhost:8000/apinasa?naturalEvent=' + naturalEvent + '&numOfEvents=' + numOfEvents)
+                        const res = await fetch( 'https://naturaleventtrackerapi.onrender.com/apinasa?naturalEvent=' + naturalEvent + '&numOfEvents=' + numOfEvents)
                         const { events } = await res.json()
                         setEventData(events)
                     } else {
