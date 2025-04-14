@@ -8,7 +8,7 @@ const ChartFeature = () => {
 
     return (
         <>
-        <Link onClick={this.forceUpdate} to={"/chart"} rel="noopener noreferrer">
+        <Link onClick={() => window.location.reload()} to={"/chart"} rel="noopener noreferrer">
             <FaChartBar id="chartButton" className="chart-button"/>   
         </Link>
 
