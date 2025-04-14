@@ -2,7 +2,6 @@ import * as turf from '@turf/turf';
 
 const DrawCircle = (mapRef, radius, lat, long) => {
     if(long > 0 || lat > 0) {
-        console.log(lat);
         let _center = [long, lat];
         let _options = {
         steps: 80,

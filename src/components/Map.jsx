@@ -108,66 +108,65 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
       const el = document.createElement('div');
       el.className = icon;
 
-      if(naturalEvent != "earthquakes") {
-        while(i < ev.geometry.length) {
-          
-          const el = document.createElement('div');
-          el.className = icon;
-          let desc = "";
+      if(naturalEvent != "earthquakes") {          
+        const el = document.createElement('div');
+        el.className = icon;
+        let desc = "";
 
-          if(ev.description != null) {
-            desc = ev.description;
-          }
+        if(ev.description != null) {
+          desc = ev.description;
+        }
 
-          // Markers for volcanoes, severe storms, wildfires, and sea and lake ice from NASA EONET API
-          if(ev.geometry[i].type == "Point") {
-            new mapboxgl.Marker(el)
-                  .setLngLat([ ev.geometry[i].coordinates[0], ev.geometry[i].coordinates[1] ])
-                  .setPopup(
-                    new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
-                      .setHTML(
-                        `<h3>${ev.title}</h3>
-                          <div>
-                            <p>${desc}</p>
-                            <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
-                          </div>
-                          <a href="https://www.google.com/search?q=${ev.title}"  rel="noreferrer noopener" target=_blank>
-                            <button>Learn More about ${ev.title}</button>
-                          </a>`
-                      )
-                  )
-                  .addTo(mapRef.current);
-          } else if (ev.geometry[i].type == "Polygon"){
-            while(j < ev.geometry[i].coordinates[0].length) {
+        // Markers for volcanoes, severe storms, wildfires, and sea and lake ice from NASA EONET API
+        if(ev.geometry[0].type == "Point") {
+          new mapboxgl.Marker(el)
+                .setLngLat([ ev.geometry[0].coordinates[0], ev.geometry[0].coordinates[1] ])
+                .setPopup(
+                  new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
+                    .setHTML(
+                      `<h3>${ev.title}</h3>
+                        <div>
+                          <p>${desc}</p>
+                          <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
+                        </div>
+                        <a href="https://www.google.com/search?q=${ev.title}"  rel="noreferrer noopener" target=_blank>
+                          <button>Learn More about ${ev.title}</button>
+                        </a>`
+                    )
+                )
+                .addTo(mapRef.current);
+          } else if (ev.geometry[0].type == "Polygon") {
+            while(i < ev.geometry.length) {
+              while(j < ev.geometry[i].coordinates[0].length) {
 
-              const el = document.createElement('div');
-              el.className = icon;
-              let desc = "";
+                const el = document.createElement('div');
+                el.className = icon;
+                let desc = "";
 
-              if(ev.description != null) {
-                desc = ev.description;
-              } 
+                if(ev.description != null) {
+                  desc = ev.description;
+                } 
 
-              new mapboxgl.Marker(el)
-              .setLngLat([ ev.geometry[i].coordinates[0][j][0], ev.geometry[i].coordinates[0][j][1] ])
-              .setPopup(
-                new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
-                  .setHTML(
-                    `<h3>${ev.title}</h3>
-                      <div>
-                        <p>${desc}</p>
-                        <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
-                      </div>
-                      <a href="https://www.google.com/search?q=${ev.title}" rel="noreferrer noopener" target=_blank>
-                        <button>Learn More about ${ev.title}</button>
-                      </a>`
-                  )
-              )
-              .addTo(mapRef.current);
-              j+=1;
+                new mapboxgl.Marker(el)
+                .setLngLat([ ev.geometry[i].coordinates[0][j][0], ev.geometry[i].coordinates[0][j][1] ])
+                .setPopup(
+                  new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
+                    .setHTML(
+                      `<h3>${ev.title}</h3>
+                        <div>
+                          <p>${desc}</p>
+                          <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
+                        </div>
+                        <a href="https://www.google.com/search?q=${ev.title}" rel="noreferrer noopener" target=_blank>
+                          <button>Learn More about ${ev.title}</button>
+                        </a>`
+                    )
+                )
+                .addTo(mapRef.current);
+                j+=1;
 
-            }
-          }
+              }
+            } 
           i+=1;
         }
       } else {

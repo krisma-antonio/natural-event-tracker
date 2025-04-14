@@ -5,16 +5,11 @@ import { Link } from 'react-router-dom';
 
 
 const ChartFeature = () => {
-    const [chartButtonOpen, setChartButtonOpen] = useState(false);
-
-    const handleChartButton = () => {
-        setChartButtonOpen(!chartButtonOpen);
-    }
 
     return (
         <>
-        <Link to={"/chart"} rel="noopener noreferrer" className={chartButtonOpen ? "chart-button-disable" : ""}>
-            <FaChartBar id="chartButton" onClick={handleChartButton} className="chart-button"/>   
+        <Link reloadDocument to={"/chart"} rel="noopener noreferrer">
+            <FaChartBar id="chartButton" className="chart-button"/>   
         </Link>
 
         </>
