@@ -165,10 +165,10 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                 .addTo(mapRef.current);
                 j+=1;
 
-              }
-            } 
-          i+=1;
-        }
+              } 
+              i+=1;
+            }
+          }
       } else {
         // Markers for earthquakes from USGS
         new mapboxgl.Marker(el)
