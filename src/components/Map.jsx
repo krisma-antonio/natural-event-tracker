@@ -4,9 +4,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import DrawCircle from './DrawCircle';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import axios from "axios";
-
-import AlertEvent from './AlertEvent';
 
 const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEnable}) => {
 

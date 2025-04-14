@@ -2,7 +2,6 @@ import {useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import RangeSlider from './RangeSlider';
 import Alert from 'react-bootstrap/Alert';
-import AlertEvent from './AlertEvent';
 
 const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents, setEnablePastEvents}) => {
     const [sliderValue, setSliderValue] = useState(0);

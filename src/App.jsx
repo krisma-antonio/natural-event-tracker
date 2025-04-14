@@ -1,4 +1,3 @@
-import { useRef, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import DonationPage from './components/DonationPage';
 import NotFoundPage from './components/NotFoundPage';

@@ -2,14 +2,6 @@ import { useRef, useEffect, useState } from 'react'
 import BarLoader from './BarLoader';
 
 const ChartData = ({numbers, setNumbers}) => {
-    // get current date
-    const getDate = () => {
-        const today = new Date();
-        const month = today.getMonth() + 1;
-        const year = today.getFullYear();
-        const date = today.getDate();
-        return `${year}-${month}-${date}`;
-    }
 
     const [earthquakeData, setEarthquakeData] = useState([]);
     const [stormData, setStormData] = useState([]);

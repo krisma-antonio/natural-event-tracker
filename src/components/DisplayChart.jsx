@@ -11,7 +11,6 @@ import {
 import { Bar } from "react-chartjs-2";
 import ChartData from "./ChartData";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import Navibar from "./Navibar";
   
   ChartJS.register(
     CategoryScale,
@@ -22,7 +21,6 @@ import Navibar from "./Navibar";
     Legend
   );
 
-import BarLoader from './Loader';
 
 import { useRef, useEffect, useState } from 'react'
  

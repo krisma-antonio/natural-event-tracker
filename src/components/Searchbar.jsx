@@ -3,8 +3,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import Navibar from './Navibar';
 import FilterDropDown from './FilterDropDown';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { BsFilterCircleFill } from "react-icons/bs";
-import { FaChartBar } from "react-icons/fa";
 import Map from './Map';
 import Loader from './Loader';
 import ChartFeature from './ChartFeature';
