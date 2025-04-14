@@ -30,7 +30,7 @@ const Navibar = ({children}) => {
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link onClick={() => window.location.reload()} to={item.path}>
+                  <Link to={item.path} onClick={() => window.location.reload()}>
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>
