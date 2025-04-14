@@ -127,7 +127,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                       `<h3>${ev.title}</h3>
                         <div>
                           <p>${desc}</p>
-                          <p>Date started: ${(ev.geometry[i].date).substring(0,10)}</p>
+                          <p>Date started: ${(ev.geometry[0].date).substring(0,10)}</p>
                         </div>
                         <a href="https://www.google.com/search?q=${ev.title}"  rel="noreferrer noopener" target=_blank>
                           <button>Learn More about ${ev.title}</button>
