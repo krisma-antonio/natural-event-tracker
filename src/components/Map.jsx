@@ -134,7 +134,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                 .addTo(mapRef.current);
           } else if (ev.geometry[0].type == "Polygon") {
             while(i < ev.geometry.length) {
-              while(j < ev.geometry[i].coordinates[0].length) {
+              //while(j < ev.geometry[i].coordinates[0].length) {
 
                 const el = document.createElement('div');
                 el.className = icon;
@@ -145,7 +145,7 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                 } 
 
                 new mapboxgl.Marker(el)
-                .setLngLat([ ev.geometry[i].coordinates[0][j][0], ev.geometry[i].coordinates[0][j][1] ])
+                .setLngLat([ ev.geometry[i].coordinates[0][0][0], ev.geometry[i].coordinates[0][0][1] ])
                 .setPopup(
                   new mapboxgl.Popup({ offset: 25, className: "pop-up", closeOnClick: true, closeButton: false }) // add popups
                     .setHTML(
@@ -160,9 +160,9 @@ const Map = ({eventData, naturalEvent, clickedEvent, date, radius, setLocationEn
                     )
                 )
                 .addTo(mapRef.current);
-                j+=1;
+              // j+=1;
 
-              } 
+              //} 
               i+=1;
             }
           }

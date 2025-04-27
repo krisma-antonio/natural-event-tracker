@@ -13,7 +13,7 @@ const DrawCircle = (mapRef, radius, lat, long) => {
         mapRef.current.addSource("circleData", {
             type: "geojson",
             data: _circle,
-            });
+        });
 
         mapRef.current.addLayer({
             id: "circle-fill",
@@ -23,11 +23,7 @@ const DrawCircle = (mapRef, radius, lat, long) => {
                 "fill-color": "red",
                 "fill-opacity": 0.5,
             },
-            });
-            
-        /*if(radius > 0) {
-            mapRef.current.flyTo({center: [long, lat], speed:0.9, curve:1, zoom: 7});
-        }*/
+        });
     }
 }
 
