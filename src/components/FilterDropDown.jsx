@@ -71,7 +71,7 @@ const FilterDropDown = ({setRadius, locationEnable, clickedEvent, setNumOfEvents
             <div className="section-1">
                 <div className="filter-title"><h1>Limit Events</h1></div>
                 <div className="filter-button">
-                    <RangeSlider min={50} max={300} step={1} onChange={numOfEvents}/>
+                    <RangeSlider min={1} max={300} step={1} onChange={numOfEvents}/>
                     <p>Limit: <span id="numOfEvents">50</span> events</p>
                     <Button variant='secondary' size="sm" type='button' onClick={numOfEventsValue}> Limit </Button>
                 </div>
