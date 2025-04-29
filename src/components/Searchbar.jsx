@@ -30,8 +30,13 @@ const SearchBar = () => {
     // sets clicked natural event
     const handleSearchValue = (e) => {
         const event = e.target.getAttribute("id");
-        setNaturalEvent(event);
-        setClickedEvent(true);
+
+        const isValid = /^[a-zA-Z]+$/.test(event);
+
+        if(isValid) {
+            setNaturalEvent(event);
+            setClickedEvent(true);
+        }
     }
 
     // Natural event API URL for earthquake
