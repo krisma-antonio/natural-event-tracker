@@ -1,8 +1,7 @@
-# React + Vite
+# Natural Event Tracker Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Natural Event Tracker is a web app developed in React, Node, HTML, CSS, and JS for my Capstone 2025 senior project. 
 
-Currently, two official plugins are available:
+The objective is to enhance individuals’ ability to stay informed about past and active natural events such as droughts, earthquakes, severe storms, wildfires, floods, landslides, dust and haze, sea and lake ice, snow, temperature extremes, and volcanoes occurring in their areas and around the world.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+More info: https://krisma.cikeys.com/capstone2025/ 
